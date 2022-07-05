@@ -1,9 +1,11 @@
 import axios from "axios";
-
 import "./App.css";
 
 //hooks
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
+
+//components
+import Table from "./components/Table";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -28,12 +30,6 @@ function App() {
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  const Table = ({ columns, data }) => {
-    console.log("data ===>", data);
-    console.log("columns ===>", columns);
-    return <div>selamlar</div>;
-  };
 
   return (
     <div className="App">
