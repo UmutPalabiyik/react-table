@@ -7,13 +7,34 @@ const Table = ({ columns, data }) => {
       data,
     });
 
-  console.log("getTableProps", getTableProps);
-  console.log("getTableBodyProps", getTableBodyProps);
-  console.log("headerGroups", headerGroups);
-  console.log("rows", rows);
-  console.log("prepareRow", prepareRow);
+  console.log("columns", columns);
 
-  return <div>selamlarfadasdff</div>;
+
+  return (
+    <table {...getTableProps} className="border-1">
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row, i) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => (
+                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+              ))}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
 };
 
 export default Table;

@@ -1,15 +1,47 @@
 import axios from "axios";
 import "./App.css";
+import styled from "styled-components";
+
 
 //hooks
 import { useState, useEffect } from "react";
 
 //components
 import Table from "./components/Table";
+import MuiTable from "./components/MuiTable";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [columns, setColumns] = useState([]);
+
+  const Styles = styled.div`
+    padding: 1rem;
+
+    table {
+      border-spacing: 0;
+      border: 1px solid black;
+
+      tr {
+        :last-child {
+          td {
+            border-bottom: 0;
+          }
+        }
+      }
+
+      th,
+      td {
+        margin: 0;
+        padding: 0.5rem;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+
+        :last-child {
+          border-right: 0;
+        }
+      }
+    }
+  `;
 
   const fetchProducts = async () => {
     const response = await axios.get("https://dummyjson.com/products");
@@ -19,10 +51,23 @@ function App() {
   };
 
   const handleColumns = (data) => {
-    const columns = Object.keys(data).map((column) => ({
-      Header: column,
-      accessor: column,
-    }));
+    const columns = Object.keys(data)
+      .filter((column) => column !== "images")
+      .map((column) => {
+        if (column === "thumbnail") {
+          return {
+            Header: column,
+            accessor: column,
+            maxWidth: true,
+            Cell: ({ value }) => <img src={value} />,
+          };
+        } else {
+          return {
+            Header: column,
+            accessor: column,
+          };
+        }
+      });
 
     setColumns(columns);
   };
@@ -32,10 +77,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1 className="mt-4 font-semibold text-xl text-red-900">selamlar</h1>
-      <Table data={products} columns={columns} />
-    </div>
+    <Styles>
+{/*<Table columns={columns} data={products} /> */}
+      <MuiTable columns={columns} data={products} />
+    </Styles>
   );
 }
 
