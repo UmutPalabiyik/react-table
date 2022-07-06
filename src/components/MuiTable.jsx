@@ -14,23 +14,33 @@ export const MuiTable = ({ columns, data }) => {
     data,
   });
 
-  console.log("table props ==>", {...getTableProps()})
-
   return (
     <MaUTable {...getTableProps()}>
-      <TableHead >
-        {headerGroups.map(headerGroup => (
-                <TableRow {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map(column => (
-                            <TableCell {...column.getHeaderProps()}  >
-                                {column.render('Header')}
-                            </TableCell>
-                        ))
-                    }
-                </TableRow>
-            ) )
-        }
+      <TableHead>
+        {headerGroups.map((headerGroup) => (
+          <TableRow {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <TableCell {...column.getHeaderProps()}>
+                {column.render("Header")}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
       </TableHead>
+      <TableBody>
+        {rows.map((row, i) => {
+          prepareRow(row);
+          console.log("rowss ====>", rows)
+          return (
+            <TableRow {...row.getRowProps}>
+              {row.cells.map((cell) => {
+/*                 console.log("row ==>", cell) */
+                return <TableCell>{cell.render("Cell")}</TableCell>;
+              })}
+            </TableRow>
+          );
+        })}
+      </TableBody>
     </MaUTable>
   );
 };

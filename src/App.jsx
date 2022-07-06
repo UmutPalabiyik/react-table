@@ -2,7 +2,6 @@ import axios from "axios";
 import "./App.css";
 import styled from "styled-components";
 
-
 //hooks
 import { useState, useEffect } from "react";
 
@@ -59,7 +58,9 @@ function App() {
             Header: column,
             accessor: column,
             maxWidth: true,
-            Cell: ({ value }) => <img src={value} />,
+            Cell: ({ value }) => (
+              <img style={{ height: "100px", width: "100%" }} src={value} />
+            ),
           };
         } else {
           return {
@@ -78,7 +79,7 @@ function App() {
 
   return (
     <Styles>
-{/*<Table columns={columns} data={products} /> */}
+      {/*<Table columns={columns} data={products} /> */}
       <MuiTable columns={columns} data={products} />
     </Styles>
   );
