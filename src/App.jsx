@@ -15,7 +15,6 @@ function App() {
 
   const Styles = styled.div`
     padding: 1rem;
-
     table {
       border-spacing: 0;
       border: 1px solid black;
@@ -26,6 +25,11 @@ function App() {
             border-bottom: 0;
           }
         }
+      }
+
+      th{
+        font-weight: 700;
+        text-transform: capitalize;
       }
 
       th,
